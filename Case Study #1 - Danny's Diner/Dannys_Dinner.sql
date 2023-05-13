@@ -35,6 +35,14 @@ SELECT PRODUCT_ID,COUNT(*) CNT FROM dannys_diner.SALES GROUP BY PRODUCT_ID ORDER
 
 
 -- 5. Which item was the most popular for each customer?
+/*This question is slighty ambigious, there could be tie in that case I am resulting all*/
+select customer_id,product_id from (
+select customer_id,product_id,cnt,dense_rank() over(partition by customer_id order by cnt desc) as rnk 
+from (
+select customer_id,product_id,count(*) cnt
+from dannys_diner.sales group by customer_id,product_id) a
+) a where rnk=1
+
 -- 6. Which item was purchased first by the customer after they became a member?
 -- 7. Which item was purchased just before the customer became a member?
 -- 8. What is the total items and amount spent for each member before they became a member?
