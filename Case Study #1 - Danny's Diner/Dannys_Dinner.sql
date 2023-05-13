@@ -22,7 +22,17 @@ group by s.customer_id
 ;
 
 -- 3. What was the first item from the menu purchased by each customer?
+select s.customer_id,m.product_name 
+from dannys_diner.sales s 
+inner join dannys_diner.menu m 
+on s.product_id=m.product_id
+where (order_date,s.product_id)=(select min(order_date),min(product_id) from dannys_diner.sales s1 where s1.customer_id=s.customer_id);
+
 -- 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+SELECT PRODUCT_ID,COUNT(*) CNT FROM dannys_diner.SALES GROUP BY PRODUCT_ID ORDER BY CNT DESC LIMIT 1;
+https://www.db-fiddle.com/f/2rM8RAnq7h5LLDTzZiRWcd/138
+
+
 -- 5. Which item was the most popular for each customer?
 -- 6. Which item was purchased first by the customer after they became a member?
 -- 7. Which item was purchased just before the customer became a member?
