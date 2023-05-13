@@ -22,6 +22,7 @@ group by s.customer_id
 ;
 
 -- 3. What was the first item from the menu purchased by each customer?
+/*This question is slighty ambigious, if a customer orders more than one item from menu on same date which one will be considered as first? I have considered the product_id as one of the consideration in case of tie*/
 select s.customer_id,m.product_name 
 from dannys_diner.sales s 
 inner join dannys_diner.menu m 
@@ -30,7 +31,7 @@ where (order_date,s.product_id)=(select min(order_date),min(product_id) from dan
 
 -- 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 SELECT PRODUCT_ID,COUNT(*) CNT FROM dannys_diner.SALES GROUP BY PRODUCT_ID ORDER BY CNT DESC LIMIT 1;
-https://www.db-fiddle.com/f/2rM8RAnq7h5LLDTzZiRWcd/138
+
 
 
 -- 5. Which item was the most popular for each customer?
